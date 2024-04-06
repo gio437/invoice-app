@@ -1,0 +1,67 @@
+.paymentPage {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 600px;
+  }
+  
+  .paymentPageHeader {
+    background-color: #282c34;
+    color: white;
+    padding: 20px 0;
+  }
+  
+  h1 {
+    margin: 0;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type='number'] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    border-radius: 5rem;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  .homePageBtn {
+    text-decoration: none;
+    margin-top: 20px;
+    font-size: 2rem;
+    background-color: #28a745;
+    color: white;
+    padding: 30px 40px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 4rem;
+    top: 25rem; /* Adjust the top position as needed */
+    left: 20px; /* Adjust the right position as needed */
+    
+  }
+  
+  .homePageBtn:hover {
+    background-color: #218838;
+  }
+  
