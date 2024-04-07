@@ -61,8 +61,6 @@ button:hover {
   border: none;
   cursor: pointer;
   position: absolute;
-  display: flex;
-  justify-content: flex-end;
   border-radius: 4rem;
   top: 25rem; /* Adjust the top position as needed */
   right: 20px; /* Adjust the right position as needed */
@@ -71,4 +69,22 @@ button:hover {
 
 .paymentPageBtn:hover {
   background-color: #218838;
+}
+
+.contactCard {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contactName {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.contactNumber {
+  color: #555;
 }
