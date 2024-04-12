@@ -6,6 +6,7 @@ import PaymentPage from './paymentPage';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import RouteSwitch from './RouterSwitch';
+import CreatedContacts from './createdContacts';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

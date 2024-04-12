@@ -1,24 +1,11 @@
 import './App.css';
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useState, createContext } from 'react';
 import { Link } from 'react-router-dom';
+import CreatedContacts from './createdContacts';
 
-function App() {
-  const [contacts, nextContact] = useState([]);
-  const [contactName, nextContactName] = useState([]);
-  const [contactNumber, nextContactNumber] = useState([]);
+function App({setContactName, setContactNumber}) {
   const [contactCount, nextContactCount] = useState(0);
-
-  const displaySavedContacts = () => {
-    for (let i = 0; i < contactName.length; i++) {
-
-    }
-    for (let j = 0; j < contactNumber.length; j++) {
-
-    }
-    console.log(contactName);
-  }
-  displaySavedContacts();
 
   const getContact = (event) => {
     // change all of these to ID
@@ -37,10 +24,7 @@ function App() {
     // const numberRegex = /^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$/;
     // match ids when deleting by length - 1
     if (contactInfo !== '' && numberInfo !== '') {
-      nextContactName(prev => prev.concat(contactInfo));
-      nextContactNumber(prev => prev.concat(numberInfo));
-      nextContact(prev => prev + 1);
-      console.log(contactName);
+      // props.newContact(contactInfo, numberInfo);
       const contactParent = document.querySelector('.contactList');
       const contactCard = document.createElement('div');
       contactCard.classList.add('contactCard');
@@ -53,11 +37,45 @@ function App() {
       nextContactCount(prev => prev + 1); // increment ID for each contact
       generateNumber(numberInfo, contactParent, contactCard);
       generateDeleteBtn(contactParent, contactInfo, contactCard);
+      setContactName(prev => prev.concat(contactInfo));
+      setContactNumber(prev => prev.concat(numberInfo));
+      // console.log(contactName);
+      // have it only update useState after form update?
+      //CREATE SEPERATE FUNCTION AFTER GET CONTACT AT THE CLICK EVENT
     }
     else {
       window.alert('Input Name & Number!');
     }
   }
+
+  const displaySavedContacts = () => {
+    // hold state in seperate js file?
+    // use createContext
+    const storedContactNames = JSON.parse(sessionStorage.getItem('contactName'));
+    const storedContactNumbers = JSON.parse(sessionStorage.getItem('contactNumber'));
+    console.log(storedContactNames);
+    if (storedContactNames.length !== 0) {
+      for (let i = 0; i < storedContactNames.length; i++) {
+        generateContact(storedContactNames, storedContactNumbers);
+      }
+      // sessionStorage.clear();
+    }
+  }
+  
+  // useEffect(() => {
+  //    // displaySavedContacts(); 
+  // }, []); // Run only once when the component mounts
+  
+
+
+  // useEffect(() => {
+  //   sessionStorage.setItem('contactName', JSON.stringify(contactName));
+  // }, [contactName]);
+  
+  // useEffect(() => {
+  //   sessionStorage.setItem('contactNumber', JSON.stringify(contactNumber));
+  // }, [contactNumber]);
+
 
   const generateNumber = (numberInfo, contactParent, contactCard) => {
     const newNum = document.createElement('div');
@@ -98,9 +116,9 @@ function App() {
       <div className='main'>
         <div className='input-contacts'>
           <form onSubmit={getContact}>
-            <label for='contact-input'>Input Contact</label>
+            <label htmlFor='contact-input'>Input Contact</label>
             <input className='contactInputField' type='text' name='contact-input' placeholder='New Contact?' pattern='[a-z]'></input>
-            <label for='number-input'>Input Phone Number</label>
+            <label htmlFor='number-input'>Input Phone Number</label>
             <input className='numberInputField' name='number-input' placeholder='Number?' type="number"></input> 
             <button className='submitContactBtn' onClick={getContact}>Enter</button>
           </form>
