@@ -37,6 +37,10 @@ h1 {
 label {
   display: block;
   margin-bottom: 5px;
+  font-size: 1.3rem;
+  font-weight: bolder;
+  color: white;
+  margin-top: 2rem;
 }
 
 input[type='text'] {

@@ -64,4 +64,9 @@
   .homePageBtn:hover {
     background-color: #218838;
   }
+
+  .contactTitle {
+    margin-top: 8rem;
+    color: white;
+  }
   

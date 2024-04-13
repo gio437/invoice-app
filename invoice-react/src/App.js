@@ -98,6 +98,8 @@ function App({setContactName, setContactNumber}) {
   }
 
   const deleteContact = (idNum) => {
+    setContactName(prev => prev.splice(idNum, 1));
+    setContactNumber(prev => prev.splice(idNum, 1));
     console.log(idNum);
     const contactCard = document.querySelectorAll('.contactCard');
     console.log(contactCard.id);
