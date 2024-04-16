@@ -90,7 +90,7 @@ function PaymentPage({name, number, setContactName, setContactNumber}) {
             </div>
             <h2 className='contactTitle'>Contacts - Select One</h2>
             <div className='contactList'></div>
-            <Link to='/' className='homePageBtn'>{'<'}</Link>
+            <Link to='/invoice-app' className='homePageBtn'>{'<'}</Link>
         </div>
     )
 }
