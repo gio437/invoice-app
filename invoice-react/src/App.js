@@ -4,7 +4,7 @@ import { useState, createContext } from 'react';
 import { Link } from 'react-router-dom';
 import CreatedContacts from './createdContacts';
 
-function App({setContactName, setContactNumber}) {
+function App({setContactName, setContactNumber, name, number}) {
   const [contactCount, nextContactCount] = useState(0);
 
   const getContact = (event) => {
@@ -48,19 +48,6 @@ function App({setContactName, setContactNumber}) {
     }
   }
 
-  const displaySavedContacts = () => {
-    // hold state in seperate js file?
-    // use createContext
-    const storedContactNames = JSON.parse(sessionStorage.getItem('contactName'));
-    const storedContactNumbers = JSON.parse(sessionStorage.getItem('contactNumber'));
-    console.log(storedContactNames);
-    if (storedContactNames.length !== 0) {
-      for (let i = 0; i < storedContactNames.length; i++) {
-        generateContact(storedContactNames, storedContactNumbers);
-      }
-      // sessionStorage.clear();
-    }
-  }
   
   // useEffect(() => {
   //    // displaySavedContacts(); 
@@ -96,6 +83,35 @@ function App({setContactName, setContactNumber}) {
       });
     }
   }
+
+  const displaySavedContacts = (name, number) => {
+    // hold state in seperate js file?
+    // use createContext
+    // const storedContactNames = JSON.parse(sessionStorage.getItem('contactName'));
+    // const storedContactNumbers = JSON.parse(sessionStorage.getItem('contactNumber'));
+    // console.log(storedContactNames);
+    // if (storedContactNames.length !== 0) {
+    //   for (let i = 0; i < storedContactNames.length; i++) {
+    //     generateContact(storedContactNames, storedContactNumbers);
+    //   }
+      // sessionStorage.clear();
+      for (let i = 0; i < name.length; i++) {
+        const contactParent = document.querySelector('.contactList');
+        const contactCard = document.createElement('div');
+        contactCard.classList.add('contactCard');
+        contactParent.append(contactCard);
+        const newContact = document.createElement('div');
+        newContact.textContent = name[i];
+        newContact.classList.add('contactName');
+        contactCard.id = contactCount;
+        contactCard.append(newContact);
+        nextContactCount(prev => prev + 1); // increment ID for each contact
+        generateNumber(number, contactParent, contactCard);
+        generateDeleteBtn(contactParent, name, contactCard);
+      }
+    // }
+  }
+  // setTimeout(displaySavedContacts, 50);
 
   const deleteContact = (idNum) => {
     setContactName(prev => prev.splice(idNum, 1));
