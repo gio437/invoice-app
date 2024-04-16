@@ -14,7 +14,7 @@ const RouteSwitch = () => {
       <Routes>
         {/* <Route path="/" element={<CreatedContacts />} /> */}
         <Route path="/invoice-app" element={<App setContactName={setContactName} setContactNumber={setContactNumber} name={contactName} number={contactNumber}/>} />
-        <Route path="/invoice-app/paymentPage" element={<PaymentPage name={contactName} number={contactNumber} setContactName={setContactName} setContactNumber={setContactNumber} />} />
+        <Route path="/paymentPage" element={<PaymentPage name={contactName} number={contactNumber} setContactName={setContactName} setContactNumber={setContactNumber} />} />
       </Routes>
     </BrowserRouter>
   );
