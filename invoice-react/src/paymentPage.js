@@ -47,8 +47,6 @@ function PaymentPage({name, number, setContactName, setContactNumber}) {
 
     const sendPayment = () => {
         const contactCard = document.querySelectorAll('.contactCard');
-        const paymentField = document.querySelector('.paymentField');
-        paymentField.value = '';
         for (let i = 0; i < contactCard.length; i++) {
             contactCard[i].style.backgroundColor = 'white';
         }
@@ -57,13 +55,14 @@ function PaymentPage({name, number, setContactName, setContactNumber}) {
 
     const notifySentPayment = (contactCard) => {
         const paymentTitle = document.querySelector('.paymentTitle');
-        const paymentField = document.querySelector('.paymentField')
+        const paymentField = document.querySelector('.paymentField');
         contactCard.forEach(card => {
-            setTimeout(changePaymentTitle, 4000);
-            if (card.id == 1 && paymentField != '') {
+            setTimeout(defaultPaymentTitle, 4000);
+            if (card.id == 1 && paymentField.value !== '') {
                 paymentTitle.textContent = 'Sent!';
                 paymentTitle.style.color = '#0056b3';
                 card.id = 0;
+                paymentField.value = '';
             }
             else {
                 paymentTitle.textContent = 'Select Contact & Enter Payment Amount!';
@@ -72,7 +71,7 @@ function PaymentPage({name, number, setContactName, setContactNumber}) {
         })
     }
 
-    const changePaymentTitle = () => {
+    const defaultPaymentTitle = () => {
         const paymentTitle = document.querySelector('.paymentTitle');
         paymentTitle.textContent = 'Enter Payment Amount';
         paymentTitle.style.color = 'white';
