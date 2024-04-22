@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import App from './App';
 
-function PaymentPage({name, number, setContactName, setContactNumber}) {
-    console.log(name);
-    console.log(number);
+function PaymentPage({name, number, setContactName, setContactNumber, nextContactCount}) {
+
     const generateContact = () => {
-        for (let i = 0; i < number.length; i++) {
+        console.log(name);
+        for (let i = 0; i < name.length; i++) {
             const contactParent = document.querySelector('.contactList');
             const contactCard = document.createElement('div');
             contactCard.classList.add('contactCard');
@@ -43,6 +43,12 @@ function PaymentPage({name, number, setContactName, setContactNumber}) {
         newNum.textContent = number; // Use the passed number for this iteration
         newNum.classList.add('contactNumber');
         contactCard.append(newNum);
+        
+        // Reset all stored data
+        setContactName([]);
+        setContactNumber([]);
+        nextContactCount(0);
+
     }
 
     const sendPayment = () => {
@@ -56,19 +62,22 @@ function PaymentPage({name, number, setContactName, setContactNumber}) {
     const notifySentPayment = (contactCard) => {
         const paymentTitle = document.querySelector('.paymentTitle');
         const paymentField = document.querySelector('.paymentField');
-        contactCard.forEach(card => {
+        for (let i = 0; i < contactCard.length; i++) {
             setTimeout(defaultPaymentTitle, 4000);
-            if (card.id == 1 && paymentField.value !== '') {
+            if (contactCard[i].id == 1 && paymentField.value !== '') {
+                console.log('Sent!');
                 paymentTitle.textContent = 'Sent!';
                 paymentTitle.style.color = '#0056b3';
-                card.id = 0;
+                contactCard[i].id = 0;
                 paymentField.value = '';
+                i = 10000;
             }
             else {
+                console.log('Wrong!');
                 paymentTitle.textContent = 'Select Contact & Enter Payment Amount!';
                 paymentTitle.style.color = '#0056b3';
             }
-        })
+        }
     }
 
     const defaultPaymentTitle = () => {

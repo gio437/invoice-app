@@ -3,9 +3,9 @@ import React, { useEffect } from 'react';
 import { useState, createContext } from 'react';
 import { Link } from 'react-router-dom';
 import CreatedContacts from './createdContacts';
+import RouteSwitch from './RouterSwitch';
 
-function App({setContactName, setContactNumber, name, number}) {
-  const [contactCount, nextContactCount] = useState(0);
+function App({nextContactCount, contactCount, setContactName, setContactNumber, name, number}) {
 
   const getContact = (event) => {
     // change all of these to ID
@@ -15,7 +15,6 @@ function App({setContactName, setContactNumber, name, number}) {
     const numberInfo = numberField.value;
     generateContact(contactInfo, numberInfo);
     inputField.value = '';
-    console.log(numberField.value);
     numberField.value = '';
     event.preventDefault();
   }
@@ -41,28 +40,12 @@ function App({setContactName, setContactNumber, name, number}) {
       setContactNumber(prev => prev.concat(numberInfo));
       // console.log(contactName);
       // have it only update useState after form update?
-      //CREATE SEPERATE FUNCTION AFTER GET CONTACT AT THE CLICK EVENT
+      // CREATE SEPERATE FUNCTION AFTER GET CONTACT AT THE CLICK EVENT
     }
     else {
       window.alert('Input Name & Number!');
     }
   }
-
-  
-  // useEffect(() => {
-  //    // displaySavedContacts(); 
-  // }, []); // Run only once when the component mounts
-  
-
-
-  // useEffect(() => {
-  //   sessionStorage.setItem('contactName', JSON.stringify(contactName));
-  // }, [contactName]);
-  
-  // useEffect(() => {
-  //   sessionStorage.setItem('contactNumber', JSON.stringify(contactNumber));
-  // }, [contactNumber]);
-
 
   const generateNumber = (numberInfo, contactParent, contactCard) => {
     const newNum = document.createElement('div');
@@ -84,19 +67,16 @@ function App({setContactName, setContactNumber, name, number}) {
     }
   }
 
-  const displaySavedContacts = (name, number) => {
-    // hold state in seperate js file?
-    // use createContext
-    // const storedContactNames = JSON.parse(sessionStorage.getItem('contactName'));
-    // const storedContactNumbers = JSON.parse(sessionStorage.getItem('contactNumber'));
-    // console.log(storedContactNames);
-    // if (storedContactNames.length !== 0) {
-    //   for (let i = 0; i < storedContactNames.length; i++) {
-    //     generateContact(storedContactNames, storedContactNumbers);
-    //   }
-      // sessionStorage.clear();
-      for (let i = 0; i < name.length; i++) {
-        const contactParent = document.querySelector('.contactList');
+  const displaySavedContacts = () => {
+    const contactParent = document.querySelector('.contactList');
+    const existingContactCards = document.querySelectorAll('.contactCard');
+
+    existingContactCards.forEach(card => {
+      card.remove();
+    });
+
+    
+    for (let i = 0; i < name.length; i++) {
         const contactCard = document.createElement('div');
         contactCard.classList.add('contactCard');
         contactParent.append(contactCard);
@@ -105,24 +85,33 @@ function App({setContactName, setContactNumber, name, number}) {
         newContact.classList.add('contactName');
         contactCard.id = contactCount;
         contactCard.append(newContact);
-        nextContactCount(prev => prev + 1); // increment ID for each contact
-        generateNumber(number, contactParent, contactCard);
-        generateDeleteBtn(contactParent, name, contactCard);
+        generateNumber(number[i], contactParent, contactCard);
+        generateDeleteBtn(contactParent, name[i], contactCard);
       }
     // }
   }
   // setTimeout(displaySavedContacts, 50);
 
   const deleteContact = (idNum) => {
-    setContactName(prev => prev.splice(idNum, 1));
-    setContactNumber(prev => prev.splice(idNum, 1));
+  // Filter out the name and number arrays based on the index to remove
+  setContactName(prevArray => (
+    prevArray.filter((_, index) => index !== idNum)
+  ));
+
+  setContactNumber(prevArray => (
+    prevArray.filter((_, index) => index !== idNum)
+  ));
+
     console.log(idNum);
+    console.log(name);
+    nextContactCount(0);
     const contactCard = document.querySelectorAll('.contactCard');
-    console.log(contactCard.id);
     for (let i = 0; i < contactCard.length; i++) {
       if (contactCard[i].id == idNum) {
         contactCard[i].remove();
       }
+      contactCard[i].id = contactCount;
+      nextContactCount(prev => prev + 1);
     }
   }
 
