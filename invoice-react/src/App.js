@@ -36,14 +36,30 @@ function App({nextContactCount, contactCount, setContactName, setContactNumber, 
       nextContactCount(prev => prev + 1); // increment ID for each contact
       generateNumber(numberInfo, contactParent, contactCard);
       generateDeleteBtn(contactParent, contactInfo, contactCard);
-      setContactName(prev => prev.concat(contactInfo));
-      setContactNumber(prev => prev.concat(numberInfo));
+      const newName = new ContactName(contactInfo, contactCount);
+      const newNumber = new ContactNumber(numberInfo, contactCount);
+      setContactName(prev => prev.concat(newName));
+      setContactNumber(prev => prev.concat(newNumber));
       // console.log(contactName);
       // have it only update useState after form update?
       // CREATE SEPERATE FUNCTION AFTER GET CONTACT AT THE CLICK EVENT
     }
     else {
       window.alert('Input Name & Number!');
+    }
+  }
+
+  class ContactName {
+    constructor (contactInfo, id) {
+      this.contactInfo = contactInfo;
+      this.id = id;
+    }
+  }
+
+  class ContactNumber {
+    constructor (numberInfo, id) {
+      this.numberInfo = numberInfo;
+      this.id = id;
     }
   }
 
@@ -64,6 +80,7 @@ function App({nextContactCount, contactCount, setContactName, setContactNumber, 
       newBtn.addEventListener('click', () => {
         deleteContact(parseInt(newBtn.id));
       });
+      console.log(name);
     }
   }
 
@@ -83,7 +100,7 @@ function App({nextContactCount, contactCount, setContactName, setContactNumber, 
         const newContact = document.createElement('div');
         newContact.textContent = name[i];
         newContact.classList.add('contactName');
-        contactCard.id = contactCount;
+        contactCard.id = contactCount[i];
         contactCard.append(newContact);
         generateNumber(number[i], contactParent, contactCard);
         generateDeleteBtn(contactParent, name[i], contactCard);
@@ -93,25 +110,37 @@ function App({nextContactCount, contactCount, setContactName, setContactNumber, 
   // setTimeout(displaySavedContacts, 50);
 
   const deleteContact = (idNum) => {
+    // const nameIndex = name.map(function(item) {
+    //   return item.id;
+    // }).indexOf(idNum);
+    // const numberIndex = number.map(function(item) {
+    //   return item.id;
+    // }).indexOf(idNum);
+    // console.log(nameIndex);
+    // console.log(name[0].id);
+
   // Filter out the name and number arrays based on the index to remove
-  setContactName(prevArray => (
-    prevArray.filter((_, index) => index !== idNum)
-  ));
-
-  setContactNumber(prevArray => (
-    prevArray.filter((_, index) => index !== idNum)
-  ));
-
+      setContactName(name => (
+        name.filter((_, index) => index !== idNum)
+      ));
+      
+    
+      setContactNumber(number => (
+        number.filter((_, index) => index !== idNum)
+      ));
+      
+  
+  // switch the arrays to objects with id values ?? ? ? ? 
     console.log(idNum);
+    // console.log(numberIndex);
     console.log(name);
-    nextContactCount(0);
+    // nextContactCount(0);
     const contactCard = document.querySelectorAll('.contactCard');
     for (let i = 0; i < contactCard.length; i++) {
+      // contactCard[i].id = i;
       if (contactCard[i].id == idNum) {
         contactCard[i].remove();
-      }
-      contactCard[i].id = contactCount;
-      nextContactCount(prev => prev + 1);
+      } 
     }
   }
 

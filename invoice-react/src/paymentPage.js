@@ -15,7 +15,7 @@ function PaymentPage({name, number, setContactName, setContactNumber, nextContac
             contactParent.append(contactCard);
     
             const newContact = document.createElement('div');
-            newContact.textContent = name[i]; // Access each name for this iteration
+            newContact.textContent = name[i].contactInfo; // Access each name for this iteration
             newContact.classList.add('contactName');
             contactCard.append(newContact);
     
@@ -40,15 +40,14 @@ function PaymentPage({name, number, setContactName, setContactNumber, nextContac
     
     const generateNumber = (contactCard, number) => {
         const newNum = document.createElement('div');
-        newNum.textContent = number; // Use the passed number for this iteration
+        newNum.textContent = number.numberInfo; // Use the passed number for this iteration
         newNum.classList.add('contactNumber');
         contactCard.append(newNum);
         
-        // Reset all stored data
+        //Reset all stored data
         setContactName([]);
         setContactNumber([]);
         nextContactCount(0);
-
     }
 
     const sendPayment = () => {
