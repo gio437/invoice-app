@@ -1,13 +1,14 @@
 import './paymentPage.css';
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import App from './App';
 
-function PaymentPage({name, number, setContactName, setContactNumber, nextContactCount}) {
-
+function PaymentPage({setSwitchedPage, name, number, setContactName, setContactNumber, nextContactCount}) {
+    
     const generateContact = () => {
         console.log(name);
+        setSwitchedPage(1);
         for (let i = 0; i < name.length; i++) {
             const contactParent = document.querySelector('.contactList');
             const contactCard = document.createElement('div');
@@ -27,8 +28,11 @@ function PaymentPage({name, number, setContactName, setContactNumber, nextContac
                 contactCard.id = 1;
             });
         }
+        
     }
-    setTimeout(generateContact, 50);
+    useEffect(() => {
+        generateContact();
+    }, []);
 
     const clearContacts = () => {
         const existingContactCards = document.querySelectorAll('.contactCard');
@@ -45,9 +49,9 @@ function PaymentPage({name, number, setContactName, setContactNumber, nextContac
         contactCard.append(newNum);
         
         //Reset all stored data
-        setContactName([]);
-        setContactNumber([]);
-        nextContactCount(0);
+        // setContactName([]);
+        // setContactNumber([]);
+        // nextContactCount(0);
     }
 
     const sendPayment = () => {
@@ -62,7 +66,7 @@ function PaymentPage({name, number, setContactName, setContactNumber, nextContac
         const paymentTitle = document.querySelector('.paymentTitle');
         const paymentField = document.querySelector('.paymentField');
         for (let i = 0; i < contactCard.length; i++) {
-            setTimeout(defaultPaymentTitle, 4000);
+            setTimeout(defaultPaymentTitle, 3000);
             if (contactCard[i].id == 1 && paymentField.value !== '') {
                 console.log('Sent!');
                 paymentTitle.textContent = 'Sent!';

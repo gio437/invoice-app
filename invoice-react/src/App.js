@@ -4,9 +4,11 @@ import { useState, createContext } from 'react';
 import { Link } from 'react-router-dom';
 import CreatedContacts from './createdContacts';
 import RouteSwitch from './RouterSwitch';
+import axios from 'axios';
 
-function App({nextContactCount, contactCount, setContactName, setContactNumber, name, number}) {
+function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, setContactName, setContactNumber, name, number}) {
 
+  
   const getContact = (event) => {
     // change all of these to ID
     const inputField = document.querySelector('.contactInputField');
@@ -83,41 +85,63 @@ function App({nextContactCount, contactCount, setContactName, setContactNumber, 
       console.log(name);
     }
   }
+  const generateExistingDeleteBtn = (contactInfo, contactCard, i) => {
+    if (contactInfo !== '') {
+      const newBtn = document.createElement('button');
+      newBtn.classList.add('contactDeleteBtn');
+      newBtn.textContent = 'X';
+      newBtn.id = i;
+      contactCard.append(newBtn);
+      newBtn.addEventListener('click', () => {
+        deleteContact(parseInt(newBtn.id));
+      });
+      console.log(name);
+    }
+  }
 
   const displaySavedContacts = () => {
     const contactParent = document.querySelector('.contactList');
     const existingContactCards = document.querySelectorAll('.contactCard');
 
-    existingContactCards.forEach(card => {
-      card.remove();
-    });
-
+    // existingContactCards.forEach(card => {
+    //   card.remove();
+    // });
+    console.log('YES');
     
     for (let i = 0; i < name.length; i++) {
         const contactCard = document.createElement('div');
         contactCard.classList.add('contactCard');
         contactParent.append(contactCard);
         const newContact = document.createElement('div');
-        newContact.textContent = name[i];
+        newContact.textContent = name[i].contactInfo;
         newContact.classList.add('contactName');
-        contactCard.id = contactCount[i];
+        contactCard.id = i;
         contactCard.append(newContact);
-        generateNumber(number[i], contactParent, contactCard);
-        generateDeleteBtn(contactParent, name[i], contactCard);
+        generateNumber(number[i].numberInfo, contactParent, contactCard);
+        generateExistingDeleteBtn(contactParent, contactCard, i);
       }
+      setSwitchedPage(0);
     // }
   }
-  // setTimeout(displaySavedContacts, 50);
+  if (switchedPage == 1) {
+    setTimeout(displaySavedContacts, 50);
+  }
 
   const deleteContact = (idNum) => {
-    // const nameIndex = name.map(function(item) {
-    //   return item.id;
-    // }).indexOf(idNum);
-    // const numberIndex = number.map(function(item) {
-    //   return item.id;
-    // }).indexOf(idNum);
-    // console.log(nameIndex);
-    // console.log(name[0].id);
+//     console.log("idNum:", idNum);
+//   console.log("name array:", name);
+//   console.log("number array:", number);
+
+// const nameIndex = name.map(function(item) {
+//     return item.id;
+// }).indexOf(idNum);
+// console.log("nameIndex:", nameIndex);
+
+// const numberIndex = number.map(function(item) {
+//     return item.id;
+// }).indexOf(idNum);
+// console.log("numberIndex:", numberIndex);
+
 
   // Filter out the name and number arrays based on the index to remove
       setContactName(name => (
