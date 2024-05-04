@@ -63,28 +63,42 @@ function PaymentPage({setSwitchedPage, name, number, setContactName, setContactN
     }
 
     const notifySentPayment = (contactCard) => {
-        const paymentTitle = document.querySelector('.paymentTitle');
+        const paymentTitle = document.querySelector('h1');
         const paymentField = document.querySelector('.paymentField');
         for (let i = 0; i < contactCard.length; i++) {
             setTimeout(defaultPaymentTitle, 3000);
+            hideSwitchPageBtn();
             if (contactCard[i].id == 1 && paymentField.value !== '') {
                 console.log('Sent!');
                 paymentTitle.textContent = 'Sent!';
                 paymentTitle.style.color = '#0056b3';
                 contactCard[i].id = 0;
                 paymentField.value = '';
-                i = 10000;
+                i = 100000;
             }
             else {
                 console.log('Wrong!');
-                paymentTitle.textContent = 'Select Contact & Enter Payment Amount!';
+                paymentTitle.textContent = 'Select Contact & Payment Amount!';
                 paymentTitle.style.color = '#0056b3';
+                contactCard[i].id = 0;
             }
         }
     }
 
+    const hideSwitchPageBtn = () => {
+        const btn = document.querySelector('.homePageBtn');
+        btn.style.display = 'none';
+        setTimeout(showSwitchPageBtn, 3000);
+    } 
+
+    const showSwitchPageBtn = () => {
+        const btn = document.querySelector('.homePageBtn');
+        btn.style.display = 'block';
+    }
+
+
     const defaultPaymentTitle = () => {
-        const paymentTitle = document.querySelector('.paymentTitle');
+        const paymentTitle = document.querySelector('h1');
         paymentTitle.textContent = 'Enter Payment Amount';
         paymentTitle.style.color = 'white';
     }

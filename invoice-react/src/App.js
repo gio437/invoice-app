@@ -1,14 +1,9 @@
 import './App.css';
-import React, { useEffect } from 'react';
-import { useState, createContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import CreatedContacts from './createdContacts';
-import RouteSwitch from './RouterSwitch';
-import axios from 'axios';
 
 function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, setContactName, setContactNumber, name, number}) {
 
-  
   const getContact = (event) => {
     // change all of these to ID
     const inputField = document.querySelector('.contactInputField');
@@ -22,10 +17,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
   }
 
   const generateContact = (contactInfo, numberInfo) => {
-    // const numberRegex = /^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$/;
-    // match ids when deleting by length - 1
     if (contactInfo !== '' && numberInfo !== '') {
-      // props.newContact(contactInfo, numberInfo);
       const contactParent = document.querySelector('.contactList');
       const contactCard = document.createElement('div');
       contactCard.classList.add('contactCard');
@@ -37,18 +29,28 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
       contactCard.append(newContact);
       nextContactCount(prev => prev + 1); // increment ID for each contact
       generateNumber(numberInfo, contactParent, contactCard);
-      generateDeleteBtn(contactParent, contactInfo, contactCard);
+      // generateDeleteBtn(contactParent, contactInfo, contactCard);
       const newName = new ContactName(contactInfo, contactCount);
       const newNumber = new ContactNumber(numberInfo, contactCount);
       setContactName(prev => prev.concat(newName));
       setContactNumber(prev => prev.concat(newNumber));
-      // console.log(contactName);
-      // have it only update useState after form update?
-      // CREATE SEPERATE FUNCTION AFTER GET CONTACT AT THE CLICK EVENT
     }
     else {
-      window.alert('Input Name & Number!');
+      const title = document.querySelector('h1');
+      title.textContent = 'Input Contact And Phone Number!';
+      title.style.color = '#0056b3';
+      const pageSwitchBtn = document.querySelector('.paymentPageBtn');
+      pageSwitchBtn.style.display = 'none';
+      setTimeout(switchTitle, 3000);
     }
+  }
+
+  const switchTitle = () => {
+    const title = document.querySelector('h1');
+    title.textContent = 'Invoice App';
+    title.style.color = 'white';
+    const pageSwitchBtn = document.querySelector('.paymentPageBtn');
+    pageSwitchBtn.style.display = 'block';
   }
 
   class ContactName {
@@ -101,12 +103,6 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
 
   const displaySavedContacts = () => {
     const contactParent = document.querySelector('.contactList');
-    const existingContactCards = document.querySelectorAll('.contactCard');
-
-    // existingContactCards.forEach(card => {
-    //   card.remove();
-    // });
-    console.log('YES');
     
     for (let i = 0; i < name.length; i++) {
         const contactCard = document.createElement('div');
@@ -118,12 +114,12 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
         contactCard.id = i;
         contactCard.append(newContact);
         generateNumber(number[i].numberInfo, contactParent, contactCard);
-        generateExistingDeleteBtn(contactParent, contactCard, i);
+        // generateExistingDeleteBtn(contactParent, contactCard, i);
       }
       setSwitchedPage(0);
-    // }
+
   }
-  if (switchedPage == 1) {
+  if (switchedPage === 1) {
     setTimeout(displaySavedContacts, 50);
   }
 
@@ -154,7 +150,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
       ));
       
   
-  // switch the arrays to objects with id values ?? ? ? ? 
+
     console.log(idNum);
     // console.log(numberIndex);
     console.log(name);
@@ -162,7 +158,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
     const contactCard = document.querySelectorAll('.contactCard');
     for (let i = 0; i < contactCard.length; i++) {
       // contactCard[i].id = i;
-      if (contactCard[i].id == idNum) {
+      if (contactCard[i].id === idNum) {
         contactCard[i].remove();
       } 
     }
