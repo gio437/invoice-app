@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import App from './App';
 
 function PaymentPage({setSwitchedPage, name, number, setContactName, setContactNumber, nextContactCount}) {
-    
+    const [balance, setBalance] = useState(1000000);
+
     const generateContact = () => {
         console.log(name);
         setSwitchedPage(1);
@@ -72,6 +73,7 @@ function PaymentPage({setSwitchedPage, name, number, setContactName, setContactN
                 console.log('Sent!');
                 paymentTitle.textContent = 'Sent!';
                 paymentTitle.style.color = '#0056b3';
+                applyPayment(contactCard[i], paymentField.value);
                 contactCard[i].id = 0;
                 paymentField.value = '';
                 i = 100000;
@@ -83,6 +85,15 @@ function PaymentPage({setSwitchedPage, name, number, setContactName, setContactN
                 contactCard[i].id = 0;
             }
         }
+    }
+
+    const applyPayment = (selectedCard, selectedPayment) => {
+        setBalance(prev => prev - selectedPayment);
+        const balanceDiv = document.createElement('div');
+        balanceDiv.textContent = selectedPayment;
+        balanceDiv.classList.add('cardBalance');
+        // selectedPayment.style.color = 'red';
+        selectedCard.append('Balance: ' + '$' + selectedPayment);
     }
 
     const hideSwitchPageBtn = () => {
@@ -109,7 +120,7 @@ function PaymentPage({setSwitchedPage, name, number, setContactName, setContactN
                 <h1>Payment Page</h1>
             </header>
             <div className='main'>
-                <label className='paymentTitle' htmlFor='paymentNumberInput'>Enter Paymount Amount</label>
+                <label className='paymentTitle' htmlFor='paymentNumberInput'>Enter Paymount Amount - Balance: ${balance}</label>
                 <input className='paymentField' type='number' name='paymentNumberInput' placeholder='Payment Amount?'></input>
                 <button onClick={sendPayment}>Send!</button>
             </div>
