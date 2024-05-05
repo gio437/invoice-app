@@ -6,7 +6,6 @@ import PaymentPage from './paymentPage';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import RouteSwitch from './RouterSwitch';
-import CreatedContacts from './createdContacts';
 // const mysql = require('mysql');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import App from './App';
 
-function PaymentPage({setSwitchedPage, name, number, setContactName, setContactNumber, nextContactCount}) {
-    const [balance, setBalance] = useState(1000000);
+function PaymentPage({setSwitchedPage, name, number, balance, setBalance}) {
+    
 
     const generateContact = () => {
         console.log(name);
@@ -89,11 +89,20 @@ function PaymentPage({setSwitchedPage, name, number, setContactName, setContactN
 
     const applyPayment = (selectedCard, selectedPayment) => {
         setBalance(prev => prev - selectedPayment);
+        console.log(selectedCard);
         const balanceDiv = document.createElement('div');
-        balanceDiv.textContent = selectedPayment;
-        balanceDiv.classList.add('cardBalance');
-        // selectedPayment.style.color = 'red';
-        selectedCard.append('Balance: ' + '$' + selectedPayment);
+        const existingBalance = selectedCard.querySelector('.cardBalance');
+        const balanceText = 'Sent Payment: ' + '$' + selectedPayment;
+        if (existingBalance) {
+            existingBalance.textContent = balanceText;
+        }
+        else {
+            // maybe just have the card balance div by default
+            // needs to hold balance in object to add to current balance
+            balanceDiv.textContent =  balanceText;
+            balanceDiv.classList.add('cardBalance');
+            selectedCard.append(balanceDiv);
+        }
     }
 
     const hideSwitchPageBtn = () => {

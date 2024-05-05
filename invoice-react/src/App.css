@@ -92,3 +92,7 @@ button:hover {
 .contactNumber {
   color: #555;
 }
+
+.cardBalance {
+  margin-top: 1rem;
+}
