@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import App from './App';
 
-function PaymentPage({setSwitchedPage, name, number, balance, setBalance}) {
+function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setContactName}) {
     
 
     const generateContact = () => {
@@ -22,7 +22,8 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance}) {
             contactCard.append(newContact);
     
             generateNumber(contactCard, number[i]); // Pass each number for this iteration
-    
+            generateBalance(contactCard, name[i]);
+
             contactCard.addEventListener('click', () => {
                 clearContacts();
                 contactCard.style.backgroundColor = 'lightblue';
@@ -55,6 +56,13 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance}) {
         // nextContactCount(0);
     }
 
+    const generateBalance = (contactCard, name) => {
+        const newBalance = document.createElement('div');
+        newBalance.textContent = name.balance;
+        newBalance.classList.add('cardBalance');
+        contactCard.append(newBalance);
+    }
+
     const sendPayment = () => {
         const contactCard = document.querySelectorAll('.contactCard');
         for (let i = 0; i < contactCard.length; i++) {
@@ -73,7 +81,7 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance}) {
                 console.log('Sent!');
                 paymentTitle.textContent = 'Sent!';
                 paymentTitle.style.color = '#0056b3';
-                applyPayment(contactCard[i], paymentField.value);
+                applyPayment(contactCard[i], paymentField.value, i);
                 contactCard[i].id = 0;
                 paymentField.value = '';
                 i = 100000;
@@ -87,12 +95,14 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance}) {
         }
     }
 
-    const applyPayment = (selectedCard, selectedPayment) => {
+    const applyPayment = (selectedCard, selectedPayment, cardIndex) => {
         setBalance(prev => prev - selectedPayment);
         console.log(selectedCard);
         const balanceDiv = document.createElement('div');
         const existingBalance = selectedCard.querySelector('.cardBalance');
         const balanceText = 'Sent Payment: ' + '$' + selectedPayment;
+
+        name[cardIndex].balance = balanceText;
         if (existingBalance) {
             existingBalance.textContent = balanceText;
         }
