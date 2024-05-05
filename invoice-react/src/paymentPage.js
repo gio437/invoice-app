@@ -102,7 +102,7 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
         const existingBalance = selectedCard.querySelector('.cardBalance');
         const balanceText = 'Sent Payment: ' + '$' + selectedPayment;
 
-        name[cardIndex].balance = balanceText;
+        name[cardIndex].balance = balanceText; // saves current balance 
         if (existingBalance) {
             existingBalance.textContent = balanceText;
         }
