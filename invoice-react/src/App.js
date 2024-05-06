@@ -176,7 +176,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
             <label htmlFor='contact-input'>Input Contact</label>
             <input className='contactInputField' type='text' name='contact-input' placeholder='New Contact?' pattern='[a-z]'></input>
             <label htmlFor='number-input'>Input Phone Number</label>
-            <input className='numberInputField' name='number-input' placeholder='Number?' type="number"></input> 
+            <input className='numberInputField' name='number-input' placeholder='Number?' type="text"></input> 
             <button className='submitContactBtn' onClick={getContact}>Enter</button>
           </form>
         </div>
