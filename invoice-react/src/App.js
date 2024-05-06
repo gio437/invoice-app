@@ -28,8 +28,10 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
       contactCard.id = contactCount;
       contactCard.append(newContact);
       nextContactCount(prev => prev + 1); // increment ID for each contact
+
       generateNumber(numberInfo, contactParent, contactCard);
       // generateDeleteBtn(contactParent, contactInfo, contactCard);
+
       const newName = new ContactName(contactInfo, contactCount);
       const newNumber = new ContactNumber(numberInfo, contactCount);
       setContactName(prev => prev.concat(newName));
@@ -75,6 +77,14 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
     contactCard.append(newNum);
   }
 
+  const generateBalance = (balanceInfo, contactParent, contactCard) => {
+    const balanceDiv = document.createElement('div');
+    const balanceStr = 'Balance: $' + balanceInfo;
+    balanceDiv.textContent = balanceStr;
+    balanceDiv.classList.add('cardBalance');
+    contactCard.append(balanceDiv);
+  }
+
   const generateDeleteBtn = (contactParent, contactInfo, contactCard) => {
     if (contactInfo !== '') {
       const newBtn = document.createElement('button');
@@ -116,6 +126,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
         contactCard.append(newContact);
         generateNumber(number[i].numberInfo, contactParent, contactCard);
         // generateExistingDeleteBtn(contactParent, contactCard, i);
+        generateBalance(name[i].balance, contactParent, contactCard);
       }
       setSwitchedPage(0);
 
@@ -176,7 +187,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
             <label htmlFor='contact-input'>Input Contact</label>
             <input className='contactInputField' type='text' name='contact-input' placeholder='New Contact?' pattern='[a-z]'></input>
             <label htmlFor='number-input'>Input Phone Number</label>
-            <input className='numberInputField' name='number-input' placeholder='Number?' type="text"></input> 
+            <input className='numberInputField' name='number-input' placeholder='Number?' type="text"></input>
             <button className='submitContactBtn' onClick={getContact}>Enter</button>
           </form>
         </div>

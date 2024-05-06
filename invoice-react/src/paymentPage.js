@@ -85,7 +85,7 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
                 applyPayment(contactCard[i], paymentField.value, i);
                 contactCard[i].id = 0;
                 paymentField.value = '';
-                i = 100000;
+                i = 100000; // break out of loop 
             }
             else {
                 console.log('Wrong!');
@@ -102,7 +102,7 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
         const balanceDiv = document.createElement('div');
         const existingBalance = selectedCard.querySelector('.cardBalance');
         const balanceText = 'Balance: ' + '$';
-
+// add invoice number 
         if (existingBalance) {
             name[cardIndex].balance += parseInt(selectedPayment);;
             console.log(name[cardIndex].balance);
@@ -121,7 +121,7 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
     const hideSwitchPageBtn = () => {
         const btn = document.querySelector('.homePageBtn');
         btn.style.display = 'none';
-        setTimeout(showSwitchPageBtn, 3000);
+        setTimeout(showSwitchPageBtn, 3200);
     } 
 
     const showSwitchPageBtn = () => {
