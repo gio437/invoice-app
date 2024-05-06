@@ -58,7 +58,8 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
 
     const generateBalance = (contactCard, name) => {
         const newBalance = document.createElement('div');
-        newBalance.textContent = name.balance;
+        const balanceText = 'Balance: ' + '$';
+        newBalance.textContent = balanceText + name.balance;
         newBalance.classList.add('cardBalance');
         contactCard.append(newBalance);
     }
@@ -100,15 +101,17 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
         console.log(selectedCard);
         const balanceDiv = document.createElement('div');
         const existingBalance = selectedCard.querySelector('.cardBalance');
-        const balanceText = 'Sent Payment: ' + '$' + selectedPayment;
+        const balanceText = 'Balance: ' + '$';
 
-        name[cardIndex].balance = balanceText; // saves current balance 
         if (existingBalance) {
-            existingBalance.textContent = balanceText;
+            name[cardIndex].balance += parseInt(selectedPayment);;
+            console.log(name[cardIndex].balance);
+            existingBalance.textContent = balanceText + name[cardIndex].balance;
         }
         else {
             // maybe just have the card balance div by default
             // needs to hold balance in object to add to current balance
+            name[cardIndex].balance = parseInt(selectedPayment); // saves current balance 
             balanceDiv.textContent =  balanceText;
             balanceDiv.classList.add('cardBalance');
             selectedCard.append(balanceDiv);

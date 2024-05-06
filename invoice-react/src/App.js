@@ -57,7 +57,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
     constructor (contactInfo, id) {
       this.contactInfo = contactInfo;
       this.id = id;
-      this.balance = null;
+      this.balance = 0;
     }
   }
 
