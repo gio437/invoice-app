@@ -77,22 +77,24 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
         const paymentTitle = document.querySelector('h1');
         const paymentField = document.querySelector('.paymentField');
         for (let i = 0; i < contactCard.length; i++) {
-            setTimeout(defaultPaymentTitle, 3000);
-            hideSwitchPageBtn();
-            if (contactCard[i].id == 1 && paymentField.value !== '') {
-                console.log('Sent!');
-                paymentTitle.textContent = 'Sent!';
-                paymentTitle.style.color = '#0056b3';
-                applyPayment(contactCard[i], paymentField.value, i);
-                contactCard[i].id = 0;
-                paymentField.value = '';
-                i = 100000; // break out of loop 
-            }
-            else {
-                console.log('Wrong!');
-                paymentTitle.textContent = 'Select Contact & Payment Amount!';
-                paymentTitle.style.color = '#0056b3';
-                contactCard[i].id = 0;
+            if (paymentTitle.innerHTML == 'Enter Payment Amount') {
+                setTimeout(defaultPaymentTitle, 3000);
+                hideSwitchPageBtn();
+                if (contactCard[i].id == 1 && paymentField.value !== '') {
+                    console.log('Sent!');
+                    paymentTitle.textContent = 'Sent!';
+                    paymentTitle.style.color = '#0056b3';
+                    applyPayment(contactCard[i], paymentField.value, i);
+                    contactCard[i].id = 0;
+                    paymentField.value = '';
+                    i = 100000; // break out of loop 
+                }
+                else {
+                    console.log('Wrong!');
+                    paymentTitle.textContent = 'Select Contact & Payment Amount!';
+                    paymentTitle.style.color = '#0056b3';
+                    contactCard[i].id = 0;
+                }
             }
         }
     }
@@ -103,7 +105,7 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
         const balanceDiv = document.createElement('div');
         const existingBalance = selectedCard.querySelector('.cardBalance');
         const balanceText = 'Balance: ' + '$';
-// add invoice number 
+
         if (existingBalance) {
             name[cardIndex].balance += parseInt(selectedPayment);;
             console.log(name[cardIndex].balance);
@@ -140,7 +142,7 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
     return (
         <div className='paymentPage'>
             <header className='paymentPageHeader'>
-                <h1>Payment Page</h1>
+                <h1>Enter Payment Amount</h1>
             </header>
             <div className='main'>
                 <label className='paymentTitle' htmlFor='paymentNumberInput'>Enter Paymount Amount - Balance: ${balance}</label>
