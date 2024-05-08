@@ -93,6 +93,10 @@ button:hover {
   color: #555;
 }
 
+.INVNO {
+  color: #555;
+}
+
 .cardBalance {
   margin-top: 1rem;
 }

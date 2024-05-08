@@ -22,7 +22,8 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
             contactCard.append(newContact);
     
             generateNumber(contactCard, number[i]); // Pass each number for this iteration
-            generateBalance(contactCard, name[i]);
+            generateBalance(contactCard, name[i].invoiceNum, 'INVNO', 'INV');
+            generateBalance(contactCard, name[i].balance, 'cardBalance', 'Balance: $');
 
             contactCard.addEventListener('click', () => {
                 clearContacts();
@@ -56,11 +57,11 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
         // nextContactCount(0);
     }
 
-    const generateBalance = (contactCard, name) => {
+    const generateBalance = (contactCard, name, className, title) => {
         const newBalance = document.createElement('div');
-        const balanceText = 'Balance: ' + '$';
-        newBalance.textContent = balanceText + name.balance;
-        newBalance.classList.add('cardBalance');
+        const balanceText = title;
+        newBalance.textContent = balanceText + name;
+        newBalance.classList.add(className);
         contactCard.append(newBalance);
     }
 
