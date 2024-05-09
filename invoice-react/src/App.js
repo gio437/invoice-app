@@ -183,10 +183,18 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
     }
   }
 
+  const clearContacts = () => {
+    const existingContactCards = document.querySelectorAll('.contactCard');
+        existingContactCards.forEach(card => {
+            card.style.backgroundColor = 'white';
+        })
+}
+
   const findInvoice = () => {
-    const invoiceTextBox = document.querySelector('.invoiceTextBox').value;
+    let invoiceTextBox = document.querySelector('.invoiceTextBox').value;
     const invoiceNumber = document.querySelectorAll('.INVNO');
     const contactCards = document.querySelectorAll('.contactCard');
+    clearContacts();
     for (let i = 0; i < name.length; i++) {
       console.log(name[i].invoiceNum);
       console.log(invoiceTextBox);
@@ -195,7 +203,15 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
         if (invoiceNumber[i].innerHTML === 'INV' + name[i].invoiceNum) {
               contactCards[i].scrollIntoView(true);
               contactCards[i].style.backgroundColor = 'lightblue';
+              invoiceTextBox = '';
+              i = 100000;
         }
+        // else {
+        //   const appTitle = document.querySelector('h1');
+        //   appTitle.textContent = 'Invoice Num Not Found!';
+        //   appTitle.style.color = '#0056b3';
+        //   setTimeout(switchTitle, 3000);
+        // }
       }
     }
 
@@ -205,7 +221,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
     <div className="App">
       <header className="App-header">
         <h1>Invoice App</h1>
-        <div className='example'>
+        <div className='invoiceBtn'>
           <input className='invoiceTextBox' type="text" placeholder="Search Invoice No." name="search"></input>
           <button onClick={findInvoice} type="submit"><i className="fa fa-search"></i>&#x1F50E;</button>
         </div>

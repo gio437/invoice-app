@@ -126,11 +126,12 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
         const btn = document.querySelector('.homePageBtn');
         btn.style.display = 'none';
         setPageHidden(prev => prev = 1);
-        setTimeout(showSwitchPageBtn, 3200);
+        setTimeout(function() {
+            showSwitchPageBtn(btn);
+        }, 3200);
     } 
 
-    const showSwitchPageBtn = () => {
-        const btn = document.querySelector('.homePageBtn');
+    const showSwitchPageBtn = (btn) => {
         btn.style.display = 'block';
         setPageHidden(prev => prev = 0);
     }
