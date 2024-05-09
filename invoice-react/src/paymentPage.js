@@ -73,11 +73,12 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
          notifySentPayment(contactCard);
     }
 
+    const [pageHidden, setPageHidden] = useState(0);
     const notifySentPayment = (contactCard) => {
         const paymentTitle = document.querySelector('h1');
         const paymentField = document.querySelector('.paymentField');
         for (let i = 0; i < contactCard.length; i++) {
-            if (paymentTitle.innerHTML == 'Enter Payment Amount') {
+             if (pageHidden === 0) {
                 setTimeout(defaultPaymentTitle, 3000);
                 hideSwitchPageBtn();
                 if (contactCard[i].id == 1 && paymentField.value !== '') {
@@ -124,12 +125,14 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
     const hideSwitchPageBtn = () => {
         const btn = document.querySelector('.homePageBtn');
         btn.style.display = 'none';
+        setPageHidden(prev => prev = 1);
         setTimeout(showSwitchPageBtn, 3200);
     } 
 
     const showSwitchPageBtn = () => {
         const btn = document.querySelector('.homePageBtn');
         btn.style.display = 'block';
+        setPageHidden(prev => prev = 0);
     }
 
 
