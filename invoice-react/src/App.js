@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
+// import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
 
 function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, setContactName, setContactNumber, name, number}) {
 
@@ -43,7 +44,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
     }
     else {
       const title = document.querySelector('h1');
-      title.textContent = 'Input Contact, Phone Number, Invoice Number!';
+      title.textContent = 'Input All Fields!';
       title.style.color = '#0056b3';
       const pageSwitchBtn = document.querySelector('.paymentPageBtn');
       pageSwitchBtn.style.display = 'none';
@@ -182,10 +183,32 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
     }
   }
 
+  const findInvoice = () => {
+    const invoiceTextBox = document.querySelector('.invoiceTextBox').value;
+    const invoiceNumber = document.querySelectorAll('.INVNO');
+    const contactCards = document.querySelectorAll('.contactCard');
+    for (let i = 0; i < name.length; i++) {
+      console.log(name[i].invoiceNum);
+      console.log(invoiceTextBox);
+      console.log(invoiceNumber[i].innerHTML);
+      if (name[i].invoiceNum === invoiceTextBox) {
+        if (invoiceNumber[i].innerHTML === 'INV' + name[i].invoiceNum) {
+              contactCards[i].scrollIntoView(true);
+              contactCards[i].style.backgroundColor = 'lightblue';
+        }
+      }
+    }
+
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Invoice App</h1>
+        <div className='example'>
+          <input className='invoiceTextBox' type="text" placeholder="Search Invoice No." name="search"></input>
+          <button onClick={findInvoice} type="submit"><i className="fa fa-search"></i>&#x1F50E;</button>
+        </div>
       </header>
       <div className='main'>
         <div className='input-contacts'>

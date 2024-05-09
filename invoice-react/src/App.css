@@ -100,3 +100,49 @@ button:hover {
 .cardBalance {
   margin-top: 1rem;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+/* Style the search field */
+.example {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+div.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 60%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+div.example button {
+  float: left;
+  width: 10%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+  margin-bottom: 1rem;
+  margin-left: 0.5rem;
+}
+
+div.example button:hover {
+  background: #0056b3;
+}
+
+/* Clear floats */
+div.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
