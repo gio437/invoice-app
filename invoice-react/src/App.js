@@ -9,19 +9,20 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
     // change all of these to ID
     const inputField = document.querySelector('.contactInputField');
     const numberField = document.querySelector('.numberInputField');
-    const invoiceNumField = document.querySelector('.invoiceInputField');
+    // const invoiceNumField = document.querySelector('.invoiceInputField');
     const contactInfo = inputField.value;
     const numberInfo = numberField.value;
-    const invoiceNumInfo = invoiceNumField.value;
-    generateContact(contactInfo, numberInfo, invoiceNumInfo);
+    // const invoiceNumInfo = invoiceNumField.value;
+    
+    generateContact(contactInfo, numberInfo);
     inputField.value = '';
     numberField.value = '';
-    invoiceNumField.value = '';
+    // invoiceNumField.value = '';
     event.preventDefault();
   }
 
-  const generateContact = (contactInfo, numberInfo, invoiceNumInfo) => {
-    if (contactInfo !== '' && numberInfo !== '' && invoiceNumInfo) {
+  const generateContact = (contactInfo, numberInfo) => {
+    if (contactInfo !== '' && numberInfo !== '') {
       const contactParent = document.querySelector('.contactList');
       const contactCard = document.createElement('div');
       contactCard.classList.add('contactCard');
@@ -34,10 +35,10 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
       nextContactCount(prev => prev + 1); // increment ID for each contact
 
       generateNumber(numberInfo, contactParent, contactCard);
-      generateBalance(invoiceNumInfo, contactParent, contactCard, 'INV', 'INVNO');
+      generateBalance(contactCount, contactParent, contactCard, 'INV', 'INVNO');
       // generateDeleteBtn(contactParent, contactInfo, contactCard);
 
-      const newName = new ContactName(contactInfo, contactCount, invoiceNumInfo);
+      const newName = new ContactName(contactInfo, contactCount, contactCount);
       const newNumber = new ContactNumber(numberInfo, contactCount);
       setContactName(prev => prev.concat(newName));
       setContactNumber(prev => prev.concat(newNumber));
@@ -194,24 +195,27 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
     let invoiceTextBox = document.querySelector('.invoiceTextBox').value;
     const invoiceNumber = document.querySelectorAll('.INVNO');
     const contactCards = document.querySelectorAll('.contactCard');
+    const appTitle = document.querySelector('h1');
     clearContacts();
     for (let i = 0; i < name.length; i++) {
       console.log(name[i].invoiceNum);
       console.log(invoiceTextBox);
       console.log(invoiceNumber[i].innerHTML);
-      if (name[i].invoiceNum === invoiceTextBox) {
+      if (name[i].invoiceNum == invoiceTextBox) {
         if (invoiceNumber[i].innerHTML === 'INV' + name[i].invoiceNum) {
               contactCards[i].scrollIntoView(true);
               contactCards[i].style.backgroundColor = 'lightblue';
+              appTitle.textContent = 'Invoice Num Found!';
+              appTitle.style.color = '#0056b3';
               invoiceTextBox = '';
               i = 100000;
+              setTimeout(switchTitle, 3000);
         }
-        // else {
-        //   const appTitle = document.querySelector('h1');
-        //   appTitle.textContent = 'Invoice Num Not Found!';
-        //   appTitle.style.color = '#0056b3';
-        //   setTimeout(switchTitle, 3000);
-        // }
+      }
+      else {
+        appTitle.textContent = 'Invoice Num Not Found!';
+        appTitle.style.color = '#0056b3';
+        setTimeout(switchTitle, 3000);
       }
     }
 
@@ -233,8 +237,8 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
             <input className='contactInputField' type='text' name='contact-input' placeholder='Contact Name'></input>
             <label htmlFor='number-input'>Phone Number</label>
             <input className='numberInputField' name='number-input' placeholder='Phone Number' type="text"></input>
-            <label htmlFor='invoice-input'>Invoice Number</label>
-            <input className='invoiceInputField' type='number' name='invoice-input' placeholder='Invoice Number'></input>
+            {/* <label htmlFor='invoice-input'>Invoice Number</label>
+            <input className='invoiceInputField' type='number' name='invoice-input' placeholder='Invoice Number'></input> */}
             <button className='submitContactBtn' onClick={getContact}>Enter</button>
           </form>
         </div>
