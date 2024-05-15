@@ -39,10 +39,8 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
       generateBalance(contactCount, contactParent, contactCard, 'INV', 'INVNO');
       // generateDeleteBtn(contactParent, contactInfo, contactCard);
 
-      const newName = new ContactName(contactInfo, contactCount, contactCount, categoryInfo);
-      const newNumber = new ContactNumber(numberInfo, contactCount);
+      const newName = new ContactName(contactInfo, contactCount, contactCount, categoryInfo, numberInfo);
       setContactName(prev => prev.concat(newName));
-      setContactNumber(prev => prev.concat(newNumber));
     }
     else {
       const title = document.querySelector('h1');
@@ -63,19 +61,13 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
   }
 
   class ContactName {
-    constructor (contactInfo, id, invoiceNum, category) {
+    constructor (contactInfo, id, invoiceNum, category, numberInfo) {
       this.contactInfo = contactInfo;
       this.id = id;
       this.balance = 0;
       this.invoiceNum = invoiceNum;
       this.category = category;
-    }
-  }
-
-  class ContactNumber {
-    constructor (numberInfo, id) {
       this.numberInfo = numberInfo;
-      this.id = id;
     }
   }
 
@@ -133,7 +125,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
         newContact.classList.add('contactName');
         contactCard.id = i;
         contactCard.append(newContact);
-        generateNumber(number[i].numberInfo, contactParent, contactCard);
+        generateNumber(name[i].numberInfo, contactParent, contactCard);
         generateNumber(name[i].category, contactParent, contactCard);
         // generateExistingDeleteBtn(contactParent, contactCard, i);
         generateBalance(name[i].invoiceNum, contactParent, contactCard, 'INV', 'INVNO');
@@ -147,31 +139,10 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
   }
 
   const deleteContact = (idNum) => {
-//     console.log("idNum:", idNum);
-//   console.log("name array:", name);
-//   console.log("number array:", number);
-
-// const nameIndex = name.map(function(item) {
-//     return item.id;
-// }).indexOf(idNum);
-// console.log("nameIndex:", nameIndex);
-
-// const numberIndex = number.map(function(item) {
-//     return item.id;
-// }).indexOf(idNum);
-// console.log("numberIndex:", numberIndex);
-
-
   // Filter out the name and number arrays based on the index to remove
       setContactName(name => (
         name.filter((_, index) => index !== idNum)
       ));
-      
-    
-      setContactNumber(number => (
-        number.filter((_, index) => index !== idNum)
-      ));
-      
   
 
     console.log(idNum);
@@ -247,7 +218,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
               <option value="Payrolls">Payrolls</option>
               <option value="Products">Products</option>
               <option value="Materials">Materials</option>
-              <option value="Out-Sourced-Services">Out-Sourced-Services</option>
+              <option value="Out Sourced Services">Out Sourced Services</option>
             </select>
             <div></div>
             <button className='submitContactBtn' onClick={getContact}>Enter</button>

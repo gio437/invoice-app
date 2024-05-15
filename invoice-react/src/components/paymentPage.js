@@ -21,7 +21,7 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
             newContact.classList.add('contactName');
             contactCard.append(newContact);
     
-            generateNumber(contactCard, number[i].numberInfo); // Pass each number for this iteration
+            generateNumber(contactCard, name[i].numberInfo); // Pass each number for this iteration
             generateNumber(contactCard, name[i].category); 
             generateBalance(contactCard, name[i].invoiceNum, 'INVNO', 'INV');
             generateBalance(contactCard, name[i].balance, 'cardBalance', 'Balance: $');
