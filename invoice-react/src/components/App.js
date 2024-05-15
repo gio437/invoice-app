@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
 
-function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, setContactName, setContactNumber, name, number}) {
+function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, setContact, contact}) {
 
   const getContact = (event) => {
     // change all of these to ID
@@ -39,8 +39,8 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
       generateBalance(contactCount, contactParent, contactCard, 'INV', 'INVNO');
       // generateDeleteBtn(contactParent, contactInfo, contactCard);
 
-      const newName = new ContactName(contactInfo, contactCount, contactCount, categoryInfo, numberInfo);
-      setContactName(prev => prev.concat(newName));
+      const newContactObj = new Contact(contactInfo, contactCount, contactCount, categoryInfo, numberInfo);
+      setContact(prev => prev.concat(newContactObj));
     }
     else {
       const title = document.querySelector('h1');
@@ -60,7 +60,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
     pageSwitchBtn.style.display = 'block';
   }
 
-  class ContactName {
+  class Contact {
     constructor (contactInfo, id, invoiceNum, category, numberInfo) {
       this.contactInfo = contactInfo;
       this.id = id;
@@ -96,7 +96,6 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
       newBtn.addEventListener('click', () => {
         deleteContact(parseInt(newBtn.id));
       });
-      console.log(name);
     }
   }
   const generateExistingDeleteBtn = (contactInfo, contactCard, i) => {
@@ -109,27 +108,26 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
       newBtn.addEventListener('click', () => {
         deleteContact(parseInt(newBtn.id));
       });
-      console.log(name);
     }
   }
 
   const displaySavedContacts = () => {
     const contactParent = document.querySelector('.contactList');
     
-    for (let i = 0; i < name.length; i++) {
+    for (let i = 0; i < contact.length; i++) {
         const contactCard = document.createElement('div');
         contactCard.classList.add('contactCard');
         contactParent.append(contactCard);
         const newContact = document.createElement('div');
-        newContact.textContent = name[i].contactInfo;
+        newContact.textContent = contact[i].contactInfo;
         newContact.classList.add('contactName');
         contactCard.id = i;
         contactCard.append(newContact);
-        generateNumber(name[i].numberInfo, contactParent, contactCard);
-        generateNumber(name[i].category, contactParent, contactCard);
+        generateNumber(contact[i].numberInfo, contactParent, contactCard);
+        generateNumber(contact[i].category, contactParent, contactCard);
         // generateExistingDeleteBtn(contactParent, contactCard, i);
-        generateBalance(name[i].invoiceNum, contactParent, contactCard, 'INV', 'INVNO');
-        generateBalance(name[i].balance, contactParent, contactCard, 'Balance: $', 'cardBalance');
+        generateBalance(contact[i].invoiceNum, contactParent, contactCard, 'INV', 'INVNO');
+        generateBalance(contact[i].balance, contactParent, contactCard, 'Balance: $', 'cardBalance');
       }
       setSwitchedPage(0);
 
@@ -140,14 +138,13 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
 
   const deleteContact = (idNum) => {
   // Filter out the name and number arrays based on the index to remove
-      setContactName(name => (
+      setContact(name => (
         name.filter((_, index) => index !== idNum)
       ));
   
 
     console.log(idNum);
     // console.log(numberIndex);
-    console.log(name);
     // nextContactCount(0);
     const contactCard = document.querySelectorAll('.contactCard');
     for (let i = 0; i < contactCard.length; i++) {
@@ -172,12 +169,12 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
     const contactCards = document.querySelectorAll('.contactCard');
     const appTitle = document.querySelector('h1');
     clearContacts();
-    for (let i = 0; i < name.length; i++) {
-      console.log(name[i].invoiceNum);
+    for (let i = 0; i < contact.length; i++) {
+      console.log(contact[i].invoiceNum);
       console.log(textVal);
       console.log(invoiceNumber[i].innerHTML);
-      if (name[i].invoiceNum == textVal) {
-        if (invoiceNumber[i].innerHTML === 'INV' + name[i].invoiceNum) {
+      if (contact[i].invoiceNum == textVal) {
+        if (invoiceNumber[i].innerHTML === 'INV' + contact[i].invoiceNum) {
               contactCards[i].scrollIntoView(true);
               contactCards[i].style.backgroundColor = 'lightblue';
               appTitle.textContent = 'Invoice Num Found!';

@@ -4,27 +4,26 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import App from './App';
 
-function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setContactName}) {
+function PaymentPage({setSwitchedPage, contact, balance, setBalance, setContact}) {
     
 
     const generateContact = () => {
-        console.log(name);
-        setSwitchedPage(1);
-        for (let i = 0; i < name.length; i++) {
+        setSwitchedPage(1); 
+        for (let i = 0; i < contact.length; i++) {
             const contactParent = document.querySelector('.contactList');
             const contactCard = document.createElement('div');
             contactCard.classList.add('contactCard');
             contactParent.append(contactCard);
     
             const newContact = document.createElement('div');
-            newContact.textContent = name[i].contactInfo; // Access each name for this iteration
+            newContact.textContent = contact[i].contactInfo; // Access each name for this iteration
             newContact.classList.add('contactName');
             contactCard.append(newContact);
     
-            generateNumber(contactCard, name[i].numberInfo); // Pass each number for this iteration
-            generateNumber(contactCard, name[i].category); 
-            generateBalance(contactCard, name[i].invoiceNum, 'INVNO', 'INV');
-            generateBalance(contactCard, name[i].balance, 'cardBalance', 'Balance: $');
+            generateNumber(contactCard, contact[i].numberInfo); // Pass each number for this iteration
+            generateNumber(contactCard, contact[i].category); 
+            generateBalance(contactCard, contact[i].invoiceNum, 'INVNO', 'INV');
+            generateBalance(contactCard, contact[i].balance, 'cardBalance', 'Balance: $');
 
             contactCard.addEventListener('click', () => {
                 clearContacts();
@@ -109,14 +108,14 @@ function PaymentPage({setSwitchedPage, name, number, balance, setBalance, setCon
         const balanceText = 'Balance: ' + '$';
 
         if (existingBalance) {
-            name[cardIndex].balance += parseInt(selectedPayment);;
-            console.log(name[cardIndex].balance);
-            existingBalance.textContent = balanceText + name[cardIndex].balance;
+            contact[cardIndex].balance += parseInt(selectedPayment);;
+            console.log(contact[cardIndex].balance);
+            existingBalance.textContent = balanceText + contact[cardIndex].balance;
         }
         else {
             // maybe just have the card balance div by default
             // needs to hold balance in object to add to current balance
-            name[cardIndex].balance = parseInt(selectedPayment); // saves current balance 
+            contact[cardIndex].balance = parseInt(selectedPayment); // saves current balance 
             balanceDiv.textContent =  balanceText;
             balanceDiv.classList.add('cardBalance');
             selectedCard.append(balanceDiv);
