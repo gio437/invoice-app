@@ -1,4 +1,4 @@
-import './paymentPage.css';
+import '../styling/paymentPage.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';

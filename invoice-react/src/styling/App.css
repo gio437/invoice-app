@@ -143,3 +143,8 @@ div.invoiceBtn::after {
   clear: both;
   display: table;
 }
+
+#categorys {
+  margin-bottom: 3rem;
+  width: 9rem;
+}

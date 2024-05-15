@@ -1,4 +1,4 @@
-import './App.css';
+import '../styling/App.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
 // import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
@@ -17,6 +17,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
     generateContact(contactInfo, numberInfo, categoryInfo);
     inputField.value = '';
     numberField.value = '';
+    categoryField.selectedIndex = 0;
     event.preventDefault();
   }
 
@@ -133,6 +134,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
         contactCard.id = i;
         contactCard.append(newContact);
         generateNumber(number[i].numberInfo, contactParent, contactCard);
+        generateNumber(name[i].category, contactParent, contactCard);
         // generateExistingDeleteBtn(contactParent, contactCard, i);
         generateBalance(name[i].invoiceNum, contactParent, contactCard, 'INV', 'INVNO');
         generateBalance(name[i].balance, contactParent, contactCard, 'Balance: $', 'cardBalance');
