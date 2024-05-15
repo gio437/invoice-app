@@ -244,10 +244,10 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
             <label htmlFor="categorys">Choose a category:</label>
             <select name="categorys" id="categorys">
               <option value=""></option>
-              <option value="payrolls">Payrolls</option>
-              <option value="product">Products</option>
-              <option value="materials">Materials</option>
-              <option value="out-sourced-services">Out-Sourced-Services</option>
+              <option value="Payrolls">Payrolls</option>
+              <option value="Products">Products</option>
+              <option value="Materials">Materials</option>
+              <option value="Out-Sourced-Services">Out-Sourced-Services</option>
             </select>
             <div></div>
             <button className='submitContactBtn' onClick={getContact}>Enter</button>
