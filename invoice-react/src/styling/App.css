@@ -109,7 +109,7 @@ button:hover {
   justify-content: center;
 }
 
-div.invoiceBtn input[type=text] {
+div.invoiceBtn input[type=number] {
   padding: 10px;
   font-size: 17px;
   border: 1px solid grey;

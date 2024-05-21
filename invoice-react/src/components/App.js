@@ -198,7 +198,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
       <header className="App-header">
         <h1>Invoice App</h1>
         <div className='invoiceBtn'>
-          <input className='invoiceTextBox' type="text" placeholder="Search Invoice No." name="search"></input>
+          <input className='invoiceTextBox' type="number" placeholder="Search Invoice Number" name="search"></input>
           <button onClick={findInvoice} type="submit"><i className="fa fa-search"></i>&#x1F50E;</button>
         </div>
       </header>
