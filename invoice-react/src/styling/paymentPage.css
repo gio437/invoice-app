@@ -45,20 +45,18 @@
 
   .homePageBtn {
     text-decoration: none;
-    margin-top: 20px;
-    font-size: 2rem;
+    font-size: 1rem;
     background-color: #28a745;
     color: white;
-    padding: 30px 40px;
+    padding: 10px 20px;
     border: none;
     cursor: pointer;
     position: absolute;
     display: flex;
     justify-content: flex-end;
     border-radius: 4rem;
-    top: 25rem; /* Adjust the top position as needed */
+    top: 15.6rem; /* Adjust the top position as needed */
     left: 20px; /* Adjust the right position as needed */
-    
   }
   
   .homePageBtn:hover {

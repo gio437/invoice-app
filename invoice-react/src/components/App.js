@@ -1,5 +1,5 @@
 import '../styling/App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 // import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
 
@@ -41,6 +41,10 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
 
       const newContactObj = new Contact(contactInfo, contactCount, contactCount, categoryInfo, numberInfo);
       setContact(prev => prev.concat(newContactObj));
+
+      // show nextPageBtn
+      const nextPageBtn = document.querySelector('.paymentPageBtn');
+      nextPageBtn.style.display = 'block';
     }
     else {
       const title = document.querySelector('h1');
@@ -193,6 +197,17 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
     event.preventDefault();
   }
 
+  // if contact already exists
+  const showNextPageBtn = () => {
+    if (contactCount > 0) {
+      const nextPageBtn = document.querySelector('.paymentPageBtn');
+      nextPageBtn.style.display = 'block';
+    }
+  }
+  useEffect(() => {
+    showNextPageBtn();
+  })
+
   return (
     <div className="App">
       <header className="App-header">
@@ -222,7 +237,7 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
           </form>
         </div>
         <div className='contactList'></div>
-        <Link className='paymentPageBtn' to='/paymentPage'>{'>'}</Link>
+        <Link style={{display: 'none'}} className='paymentPageBtn' to='/paymentPage'>{'>'}</Link>
       </div>
     </div>
   );
