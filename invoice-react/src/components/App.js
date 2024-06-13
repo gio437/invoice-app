@@ -41,10 +41,6 @@ function App({switchedPage, setSwitchedPage, nextContactCount, contactCount, set
 
       const newContactObj = new Contact(contactInfo, contactCount, contactCount, categoryInfo, numberInfo);
       setContact(prev => prev.concat(newContactObj));
-
-      // show nextPageBtn
-      const nextPageBtn = document.querySelector('.paymentPageBtn');
-      nextPageBtn.style.display = 'block';
     }
     else {
       const title = document.querySelector('h1');
